@@ -1,0 +1,42 @@
+def strassen_2x2(A, B):
+    """
+    Multiplica dos matrices 2x2 usando el algoritmo de Strassen.
+    A y B son listas de listas de la forma [[a,b],[c,d]].
+    """
+    # Elementos de A
+    a11, a12 = A[0][0], A[0][1]
+    a21, a22 = A[1][0], A[1][1]
+    
+    # Elementos de B
+    b11, b12 = B[0][0], B[0][1]
+    b21, b22 = B[1][0], B[1][1]
+
+    # 7 productos de Strassen
+    P1 = a11 * (b12 - b22)          # a11*(b12 - b22)
+    P2 = (a11 + a12) * b22          # (a11 + a12)*b22
+    P3 = (a21 + a22) * b11          # (a21 + a22)*b11
+    P4 = a22 * (b21 - b11)          # a22*(b21 - b11)
+    P5 = (a11 + a22) * (b11 + b22)  # (a11 + a22)*(b11 + b22)
+    P6 = (a12 - a22) * (b21 + b22)  # (a12 - a22)*(b21 + b22)
+    P7 = (a11 - a21) * (b11 + b12)  # (a11 - a21)*(b11 + b12)
+
+    # Elementos de la matriz resultado C = A * B
+    c11 = P5 + P4 - P2 + P6
+    c12 = P1 + P2
+    c21 = P3 + P4
+    c22 = P5 + P1 - P3 - P7
+
+    return [[c11, c12], [c21, c22]]
+
+
+# Ejemplo de uso
+A = [[1, 2],
+     [3, 4]]
+
+B = [[5, 6],
+     [7, 8]]
+
+C = strassen_2x2(A, B)
+print("A * B con Strassen:")
+for fila in C:
+    print(fila)
